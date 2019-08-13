@@ -18,9 +18,8 @@
 // Grab elements, create settings, etc.
 var video = document.getElementById('video');
 
-var front = false;
-var mediaConfig = { video: { facingMode: (front? "user" : "environment") } };
-//var mediaConfig = { video: true };
+// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+var mediaConfig = { video: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } } };
 
 // Get access to the camera!
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
