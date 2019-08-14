@@ -5,6 +5,51 @@ box-sizing: border-box:
  *,*:before, *:after {
 box-sizing: inherit;
 }
+/* style the verious structural elements*/
+html{
+background-color: #34ebdb;
+}
+body{
+background-color:#34ebdb
+}
+header{
+background-color:#a83232
+}
+nav{
+background-color:#ffcab68
+} 
+
+article {
+  background-color: #fcba03;
+}
+
+section {
+  background-color: #fcba03;
+ margin-bottom:24px;
+ min-height:320;
+ padding-left:24px;
+ padding-right:24px;
+} 
+
+aside {
+  background-color: #fcba03;
+}
+footer {
+  background-color: #BA99C0;
+} 
+img.small{
+float: left;
+height: 200px;
+margin-bottom:24px;
+margin-right:24px;
+}
+img.medium{
+max-width:360px;
+width: 50%;
+}
+img.large{
+width: 100%
+}
 body {
 background-color: #e6cf02;
 border:2px solid gray;
@@ -14,6 +59,8 @@ margin-left: auto;
 margin-right: auto;
 max-width: 1024px;
 min-width: 256px;
+padding-left:24px;
+padding-right:24px;
 padding-top: 8px;
 padding-bottom: 24px;
 padding-left: 24px;
@@ -22,18 +69,6 @@ padding-right: 24px;
 html {
 background:radial-gradient(circle,skyblue,skyblue 50%,lightcyan 50%,skyblue);
 background-size: 8px 8px;
-}
-header{
-}
-header p{
-float:left;
-font-size: 16px;
-font-weight: bold;
-margin-top:0px;
-}
-header h1 {
-font-size: 16px;
-text-align:right;
 }
 nav ul{
 list-style-type:none;
@@ -54,8 +89,8 @@ nav ul li:last-child {
 border-right:none;
 }
 nav ul li a {
- text-decoration:none;
  color:#111111;
+ text-decoration:none;
 }
 nav li.selected {
 color:#606060;
@@ -63,57 +98,10 @@ color:#606060;
 nav li a:hover {
 text-decoration:underline;
 }
-section{
-background-color:#FFFFFF;
-margin-bottom:24px;
-min-height:320px;
-padding-left:24px;
-padding-right:24px;
+p {
+color:#111111;
+font-weight:bold;
 }
-aside{
-}
-footer{
-}
-footer p.copyright{
-float:left;
-margin-top:0px
-}
-footer p.copyright{
-text-align :right;
-}
-img.small{
-float:left;
-height:200px;
-margin-bottom:24px;
-margin-right:24px
-}
-img.medium{
-max-width:360px;
-width:100%
-}
-img.large{
-width:100%
-}
-body,section,img{
-border:2px solid #b1b1b1;
-border-radius:16px;
-}
-@media all and (min-width:900px){
-article{
-float:left;
-width:66%;
-}
-aside{
-float:right;
-padding-left:24px;
-width:34%
-}
-footer{
-clear:both;
-}
-}
-
-
 table {
 font-size:90%;
 border-collapse:collapse;
@@ -140,3 +128,28 @@ font-weight:bold;
 padding:16px;
 text-align:center;
 }
+body, section,img{
+border: 5px solid grey;
+border-radius: 16px;
+}
+@media all and (mid-width:  900px)
+{
+article {
+float: left;
+width: 66%;
+}
+aside {
+float: left;
+padding-left: 24px;
+width: 34%;
+}
+footer {
+clear:both;
+}
+}
+
+
+
+
+
+     
