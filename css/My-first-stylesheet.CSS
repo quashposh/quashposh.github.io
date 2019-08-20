@@ -1,6 +1,6 @@
 /*Technical stuff*/
 html{
-box-sizing: border-box:
+box-sizing: border-box;
 }
  *,*:before, *:after {
 box-sizing: inherit;
@@ -76,37 +76,39 @@ footer{
 }
 footer p.copyright{
 float:left;
-margin-top:0px
+margin-top: 0px;
 }
-footer p.copyright{
-text-align :right;
+footer p.contact {
+text-align: right;
 }
 img.small{
 float:left;
 height:200px;
 margin-bottom:24px;
-margin-right:24px
+margin-right: 24px;
 }
 img.medium{
 max-width:360px;
-width:100%
+width: 50%;
 }
-img.large{
-width:100%
+img.large {
+width: 100%;
 }
-body,section,img{
+body section img {
 border:2px solid #b1b1b1;
 border-radius:16px;
 }
-@media all and (min-width:900px){
+@media all and (min-width: 900px)
+{
 article{
 float:left;
+        padding-left: 24px;
 width:66%;
 }
 aside{
-float:right;
+float: left;
 padding-left:24px;
-width:34%
+width: 34%;
 }
 footer{
 clear:both;
@@ -119,7 +121,7 @@ font-size:90%;
 border-collapse:collapse;
 width:100%;
 }
-th,td {
+th td {
 border:1px solid #000000;
 padding:8px;
 text-align:left;
