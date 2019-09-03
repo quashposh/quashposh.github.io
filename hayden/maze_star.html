@@ -4,9 +4,71 @@
 <body>
 <div>
   <input type='button' onClick='createWorld()' value='New World'>
-</div>
-<div><canvas id="gameCanvas"></canvas></div>
+  <input type="file" id="myFile">Load image</input>
+  <div><canvas id="gameCanvas"></canvas></div>
+  <button id="snap">Snap Photo</button>
+  <video id="video" width="640" height="480" autoplay></video>
 </body>
+<script>
+var myImage;
+var imageCanvas = document.createElement("canvas");
+var imageContext = imageCanvas.getContext("2d");
+var imageData;
+document.getElementById('myFile').onchange = function (evt) {
+    var tgt = evt.target || window.event.srcElement,
+        files = tgt.files;
+
+    // FileReader support
+    if (FileReader && files && files.length) {
+        var fr = new FileReader();
+        fr.onload = () => showImage(fr);
+        fr.readAsDataURL(files[0]);
+    }
+}
+
+function showImage(fileReader) {
+	myImage = new Image();
+    myImage.onload = () => getImageData(myImage);
+    myImage.src = fileReader.result;
+}
+
+function getImageData(img) {
+	imageCanvas.width = myImage.width;
+	imageCanvas.height = myImage.height;
+	console.log(imageCanvas.width);
+    imageContext.drawImage(img, 0, 0);
+    imageData = imageContext.getImageData(0, 0, img.width, img.height);
+	loadWorld();
+}
+</script>
+<script>
+// Grab elements, create settings, etc.
+var video = document.getElementById('video');
+
+// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+var mediaConfig = { video: { facingMode: "environment", width: { ideal: 240 }, height: { ideal: 320 } } };
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+        //video.src = window.URL.createObjectURL(stream);
+        video.srcObject = stream;
+        video.play();
+    });
+}
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+	imageCanvas.width = 240;
+	imageCanvas.height = 320;
+
+	imageContext.drawImage(video, 0, 0, imageCanvas.width, imageCanvas.height);
+    imageData = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height);
+	loadWorld();
+});
+
+</script>
 <script>
 // A* Pathfinding for HTML5 Canvas Tutorial
 // by Christer (McFunkypants) Kaitila
@@ -117,23 +179,83 @@ function createWorld()
 
 }
 
+// fill the world with walls
+function loadWorld()
+{
+	console.log('Loading world...');
+	console.log('image size: '+imageData.width+","+imageData.height);
+	
+	worldWidth = imageData.width;
+	worldHeight = imageData.height;
+
+	world = [[]];
+	for (var x=0; x < worldWidth; x++)
+	{
+		world[x] = [];
+
+		for (var y=0; y < worldHeight; y++)
+		{
+			world[x][y] = (imageData.data[((y * (imageData.width * 4)) + (x * 4)) + 1] > 128) ? 0 : 1;
+		}
+	}
+
+	console.log(imageData.width);
+	console.log(imageData.height);
+	console.log("\nYYY\n");
+	for (var y=0; y < worldHeight; y++)
+	{
+		console.log(world[0][y]);
+	}
+	console.log("\nXXX\n");
+	for (var x=0; x < worldWidth; x++)
+	{
+		console.log(world[x][0]);
+	}
+
+	
+	tileWidth = Math.max(1, Math.ceil(512 / worldWidth));
+	tileHeight = Math.max(1, Math.ceil(512 / worldHeight));
+	
+	console.log('tile size: '+tileWidth+","+tileHeight);
+
+	// resize the canvas
+	canvas.width = worldWidth * tileWidth;
+	canvas.height = worldHeight * tileHeight;
+
+	console.log('canvas size: '+canvas.width+","+canvas.height);
+
+	// calculate initial possible path
+	// note: unlikely but possible to never find one...
+	currentPath = [];
+	while (currentPath.length == 0)
+	{
+		pathStart = [Math.floor(Math.random()*worldWidth),Math.floor(Math.random()*worldHeight)];
+		pathEnd = [Math.floor(Math.random()*worldWidth),Math.floor(Math.random()*worldHeight)];
+		if (world[pathStart[0]][pathStart[1]] == 0)
+		currentPath = findPath(world,pathStart,pathEnd);
+	}
+	redraw();
+
+}
+
 function redraw()
 {
 	if (!spritesheetLoaded) return;
 
 	console.log('redrawing...');
+	console.log('world length: '+world.length+","+world[0].length);
 
 	var spriteNum = 0;
 
 	// clear the screen
-	ctx.fillStyle = '#000000';
+	ctx.fillStyle = '#ffffff';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = '#000000';
 
-	for (var x=0; x < worldWidth; x++)
+	for (var y=0; y < worldHeight; y++)
 	{
-		for (var y=0; y < worldHeight; y++)
+		for (var x=0; x < worldWidth; x++)
 		{
-
 			// choose a sprite to draw
 			switch(world[x][y])
 			{
@@ -144,6 +266,7 @@ function redraw()
 				spriteNum = 0;
 				break;
 			}
+/*
 
 			// draw it
 			// ctx.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
@@ -152,7 +275,8 @@ function redraw()
 			tileWidth, tileHeight,
 			x*tileWidth, y*tileHeight,
 			tileWidth, tileHeight);
-
+*/			
+			if (spriteNum > 0) ctx.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 		}
 	}
 
@@ -164,21 +288,25 @@ function redraw()
 		{
 		case 0:
 			spriteNum = 2; // start
+			ctx.fillStyle = '#00ff00';
 			break;
 		case currentPath.length-1:
 			spriteNum = 3; // end
+			ctx.fillStyle = '#ff0000';
 			break;
 		default:
 			spriteNum = 4; // path node
+			ctx.fillStyle = '#ff8000';
 			break;
 		}
 
-		ctx.drawImage(spritesheet,
+/*		ctx.drawImage(spritesheet,
 		spriteNum*tileWidth, 0,
 		tileWidth, tileHeight,
 		currentPath[rp][0]*tileWidth,
 		currentPath[rp][1]*tileHeight,
 		tileWidth, tileHeight);
+*/		ctx.fillRect(currentPath[rp][0]*tileWidth, currentPath[rp][1]*tileHeight, tileWidth, tileHeight);
 	}		
 }
 
@@ -244,8 +372,8 @@ function findPath(world, pathStart, pathEnd)
     // Note that this A-star implementation expects the world array to be square: 
 	// it must have equal height and width. If your game world is rectangular, 
 	// just fill the array with dummy values to pad the empty space.
-	var worldWidth = world[0].length;
-	var worldHeight = world.length;
+	var worldWidth = world.length;
+	var worldHeight = world[0].length;
 	var worldSize =	worldWidth * worldHeight;
 
 	// which heuristic should we use?
