@@ -1,0 +1,28 @@
+<body> 
+<h1> Space Rocket</h1>
+<canvas width="400" height="400"></canvas>
+<script>
+var canvas = document.querySelector('canvas')
+var ctx = canvas.getContext('2d')
+
+function draw(){
+ctx.fillStyle = 'darkblue'
+ctx.fillRect(0, 0, 400, 400)
+
+ctx.fillStyle = 'lightgray'
+ctx.fillRect(160, 100, 80, 200)
+
+ctx.beginPath()
+ctx.moveTo(200, 20)
+ctx.lineTo(240, 100)
+ctx.lineTo(160, 100)
+ctx.fill()
+}
+
+draw()
+</script>
+
+</body>
+</html>
+
+
