@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Tug-of-war</h1>
+        <p>
+            Each player taps either the left or the right arrow key to move the red dot towards them.
+            The winner is the player who has it on their side of the line after 10 seconds.
+        </p>
+        <canvas width="500" height="100"></canvas>
+        <script>
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var middle = 250
+        var position = middle
+
+        function draw(){
+          ctx.clearRect(0,0,500,100)
+
+          ctx.beginPath()
+          ctx.moveTo(middle,0)
+          ctx.lineTo(middle,100)
+          ctx.stroke()
+
+          ctx.beginPath()
+          ctx.fillStyle = 'red'
+          ctx.arc(position,50,5,0,Math.PI*2)
+          ctx.fill()
+        }
+
+        draw()
+
+        function move(distance) {
+          position = position+distance
+          draw()
+        }
+
+        window.addEventListener('keydown', function(event){
+            event.preventDefault()
+
+            if(event.key === 'ArrowRight'){
+                move(10)
+            }
+            if(event.key === 'ArrowLeft'){
+                move(-10)
+            }
+        })
+
+        function cheakWinner(){
+          if (position>middle){
+              alert("Right Wins!!!!!!")
+          }
+          if (position<middle){
+              alert("Left Wins!!!!!!")
+          }
+          if (position===middle){
+              alert("ITS A DRAW :(")
+          }
+        }
+
+        setTimeout(cheakWinner,10000)
+        </script>
+    </body>
+</html>
