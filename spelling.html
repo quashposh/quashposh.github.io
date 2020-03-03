@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<title>PHS Spelling</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<script>
+// get all voices that browser offers
+var available_voices = window.speechSynthesis.getVoices();
+
+// this will hold an english voice
+var english_voice = '';
+
+function chooseVoice() {
+	// find voice by language locale "en-US"
+	// if not then select the first voice
+	for(var i=0; i<available_voices.length; i++) {
+		if(available_voices[i].lang === 'en-US') {
+			english_voice = available_voices[i];
+			break;
+		}
+	}
+	if(english_voice === '')
+		english_voice = available_voices[0];
+}
+
+// list of languages is probably not loaded, wait for it
+if(available_voices.length == 0) {
+	window.speechSynthesis.addEventListener('voiceschanged', function() {
+		available_voices = window.speechSynthesis.getVoices();
+		chooseVoice();
+	});
+} else {
+	chooseVoice();
+}
+
+function textToSpeech(text) {
+	// new SpeechSynthesisUtterance object
+	var utter = new SpeechSynthesisUtterance();
+	utter.rate = 1;
+	utter.pitch = 0.5;
+	utter.text = text;
+	utter.voice = english_voice;
+
+	// speak
+	window.speechSynthesis.speak(utter);
+}
+
+var rooms = [ 'Room 7', 'Room 20' ];
+var words = [ [
+	[ 'me', 'my', 'mum', 'no', 'on', 'put', 'quiz', 'run', 'said', 'to' ],
+	[ 'up', 'us', 'van', 'we', 'went', 'will', 'was', 'box', 'yes', 'zoo' ],
+	], [
+	[ 'environment', 'transfer', 'waste', 'fertiliser', 'transport', 'locally', 'recycle', 'compost', 'reuse', 'reduce' ],
+	[ 'energy', 'pollution', 'sustainable', 'rubbish', 'plastic', 'ecology', 'manure', 'generations', 'conserve', 'hybrid' ]
+	] ];
+	
+var room = 1; // 0=room7, 1=room20
+var week = 1; // 0 or 1
+var test_word = words[room][week][0]; // room, week, word
+
+function nextWord(textbox) {
+	textbox.value = '';
+	var test_list = words[room][week];
+	var random_index = Math.floor(Math.random() * test_list.length);
+	test_word = test_list[random_index];
+	textToSpeech(test_word);
+}
+
+function repeatWord(textbox) {
+	textToSpeech(test_word);
+	textbox.focus();
+}
+
+function checkSpelling(textbox) {
+	var spelling = textbox.value.trim().toLowerCase();
+	if (spelling == test_word.toLowerCase()) {
+		textToSpeech('Correct! You are awesome!');
+	} else {
+		textToSpeech('Not quite!');
+	}
+	nextWord(textbox);
+}
+
+</script>
+<body align="center">
+<button id="speakButton" onclick="repeatWord(document.getElementById('spelling'))">Speak</button>
+<input id="spelling" type="text"></input>
+<p id="correct_spelling" />
+</body>
+<script>
+nextWord();
+// Execute a function when the user releases a key on the keyboard
+var textbox = document.getElementById('spelling');
+textbox.addEventListener('keyup', function(event) {
+  if (event.keyCode === 13) { // Number 13 is the "Enter" key on the keyboard
+    event.preventDefault(); // Cancel the default action, if needed
+    checkSpelling(textbox);
+  }
+});
+</script>
+</html>
