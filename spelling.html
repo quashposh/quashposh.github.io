@@ -64,7 +64,6 @@ var words = [ [
 var room = 1; // 0=room7, 1=room20
 var week = 1; // 0 or 1
 var test_word = words[room][week][0]; // room, week, word
-var score = 0;
 
 function nextWord(textbox) {
 	textbox.value = '';
@@ -82,11 +81,9 @@ function repeatWord(textbox) {
 function checkSpelling(textbox) {
 	var spelling = textbox.value.trim().toLowerCase();
 	if (spelling == test_word.toLowerCase()) {
-		score = score+1;
-		document.getElementById('score').value = "Score: " + score;
 		textToSpeech('Correct! You are awesome!');
 	} else {
-		textToSpeech('Not quite, try again later Josh is cool!');
+		textToSpeech('Not quite!');
 	}
 	nextWord(textbox);
 }
@@ -95,7 +92,6 @@ function checkSpelling(textbox) {
 <body align="center">
 <button id="speakButton" onclick="repeatWord(document.getElementById('spelling'))">Speak</button>
 <input id="spelling" type="text"></input>
-<p id="score" />
 <p id="correct_spelling" />
 </body>
 <script>
@@ -105,7 +101,6 @@ textbox.addEventListener('keyup', function(event) {
   if (event.keyCode === 13) { // Number 13 is the "Enter" key on the keyboard
     event.preventDefault(); // Cancel the default action, if needed
     checkSpelling(textbox);
-	// hi
   }
 });
 </script>
