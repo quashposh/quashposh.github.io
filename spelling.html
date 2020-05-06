@@ -52,15 +52,20 @@ function textToSpeech(text) {
 	window.speechSynthesis.speak(utter);
 }
 
+var rooms = [ 'Room 7', 'Room 20' ];
 var words = [ [
+	[ 'blue', 'blow', 'club', 'clap', 'fly', 'glad', 'glow', 'play', 'plan', 'slip'],
 	[ 'me', 'my', 'mum', 'no', 'on', 'put', 'quiz', 'run', 'said', 'to' ],
 	[ 'up', 'us', 'van', 'we', 'went', 'will', 'was', 'box', 'yes', 'zoo' ],
+	[ 'key', 'kid', 'cat', 'cut', 'crab', 'clip', 'the', 'here', 'went' ],
 	], [
 	[ 'environment', 'transfer', 'waste', 'fertiliser', 'transport', 'locally', 'recycle', 'compost', 'reuse', 'reduce' ],
-	[ 'energy', 'pollution', 'sustainable', 'rubbish', 'plastic', 'ecology', 'manure', 'generations', 'conserve', 'hybrid' ]
+	[ 'energy', 'pollution', 'sustainable', 'rubbish', 'plastic', 'ecology', 'manure', 'generations', 'conserve', 'hybrid' ],
+	[ 'excellent', 'eagle', 'every', 'evil', 'easier', 'knee', 'sheep', 'please', 'jeans', 'eager' ],
 	] ];
 	
 var test_word = '';
+var score = 0;
 
 function nextWord(textbox) {
 	var room = parseInt(document.getElementById('room_list').value);
@@ -81,12 +86,14 @@ function repeatWord(textbox) {
 function checkSpelling(textbox) {
 	var spelling = textbox.value.trim().toLowerCase();
 	if (spelling == test_word.toLowerCase()) {
+		score = score+1;
+		document.getElementById('score').innerText = "Score: " + score;
 		document.getElementById('correct_spelling').innerText = '';
 		textToSpeech('Correct! You are awesome!');
 		test_word = nextWord(textbox);
 	} else {
 		document.getElementById('correct_spelling').innerText = test_word;
-		textToSpeech('Not quite! Try again.');
+		textToSpeech('Nope! plz Try again.');
 	}
 	textToSpeech(test_word);
 }
@@ -98,11 +105,14 @@ function checkSpelling(textbox) {
   <option value="1">Room 20</option>
 </select>
 <select id="week_list">
+  <option value="3">Week 1</option>
+  <option value="2">Week 3</option>
   <option value="1">Week 2</option>
-  <option value="0">Week 1</option>
+  <option value="0">Week 4</option>
 </select>
 <button id="speakButton" onclick="repeatWord(document.getElementById('spelling'))">Speak</button>
 <input id="spelling" type="text"></input>
+<p id="score" />
 <p id="correct_spelling" />
 </body>
 <script>
