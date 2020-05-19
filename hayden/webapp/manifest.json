@@ -1,0 +1,13 @@
+{
+  "name": "Josh's Web App",
+  "short_name": "Josh's App",
+  "start_url": "https://quashposh.github.io/hayden/webapp/josh.html",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Josh is super cool!",
+  "icons": [{
+    "src": "/hayden/webapp/exp_mode.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}
