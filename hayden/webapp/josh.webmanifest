@@ -1,0 +1,13 @@
+{
+  "name": "Josh's Web App",
+  "short_name": "Josh's App",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Josh is super cool!",
+  "icons": [{
+    "src": "exp_mode.png",
+    "sizes": "100x100",
+    "type": "image/png"
+  }]
+}
