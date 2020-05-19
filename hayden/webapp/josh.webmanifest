@@ -6,7 +6,7 @@
   "background_color": "#fff",
   "description": "Josh is super cool!",
   "icons": [{
-    "src": "exp_mode.png",
+    "src": "/hayden/webapp/exp_mode.png",
     "sizes": "100x100",
     "type": "image/png"
   }]
