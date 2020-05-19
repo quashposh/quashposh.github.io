@@ -7,7 +7,7 @@
   "description": "Josh is super cool!",
   "icons": [{
     "src": "/hayden/webapp/exp_mode.png",
-    "sizes": "100x100",
+    "sizes": "512x512",
     "type": "image/png"
   }]
 }
