@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/png" href="Images/favicon.png" />
-<title> Happy Birthday Liam! </title>
 <link type="text/css" rel="stylesheet"
 href="css/My-first-stylesheet.CSS"/>
+<link rel="icon" type="image/png" href="Images/favicon.png" />
+<title> Happy Birthday Liam! </title>
+
 </head>
 <body>
+<div id="titleDiv"></div>
 <p onclick="alert('Liam!');">
 Click Here To Find Out Who's Lucky Day It Is
 
 </p>
-<h1>By JOSH!!!</h1>
+<h1>Happy Birthday Liam (you used the password l*****c**l!!!)</h1>
 <h2><sub>#LIAMISCOOL!</h2></sub>
 <h2><sub>HAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPY BIRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRDAY LLLLLLLLLLLLLLLLLIAM
 <h1>YOU ARE SUPER COOOOOOOOOOOOOOOOOOOOOOOOL!!!!</h1>
 <script>
-alert("We Need A Password Urgently!");
-alert("Use The Password Ernest300");
-function sayPassword() {
-	alert("password");
+function getRandomColour() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}		
+var colourfulText = "Happy Birthday Liam!\n  You Are SUPER COOOOOL!";
+function createTitleSpans()
+{
+	var colourfulDiv = document.getElementById("titleDiv");
+	for (var i = 0; i < colourfulText.length; i++)
+	{
+		var c = colourfulText.charAt(i);
+		var node = document.createElement("span");
+		var textnode = document.createTextNode(c);
+		node.appendChild(textnode);
+		node.style.color = getRandomColour();
+		colourfulDiv.appendChild(node);
 	}
-	sayPassword();
-	
+}
+function recolourTitle()
+{
+	var colourfulDiv = document.getElementById("titleDiv");
+	for (var i = 0; i < colourfulText.length; i++)
+	{
+		colourfulDiv.childNodes[i].style.color = getRandomColour();
+	}
+}
+createTitleSpans();
+setInterval(recolourTitle, 100);	
 </script>
 </body>
 </html>
