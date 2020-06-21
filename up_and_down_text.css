@@ -23,7 +23,7 @@ body
 	color: #fff;
 	display: inline-block;
 	text-transform: uppercase;
-	animation: animate 2s ease-in-out infinite;
+	animation: animate 1s ease-in-out infinite;
 	animation-delay: calc(0.1s * var(--i));
 	animation-play-state: paused;
 }
