@@ -1,0 +1,48 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: consolas;
+	overflow-x: hidden;
+}
+input[type="checkbox"]
+{
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	width: 50px;
+	height: 50px;
+	z-index: 100000;
+	cursor: pointer;
+	opacity: 0;
+}
+.icon
+{
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	width: 50px;
+	height: 50px;
+	z-index: 100001;
+	cursor: pointer;
+	background: #000;
+	pointer-events: none;	
+}
+.icon:before
+{
+	content: 'close';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	color: #fff;
+	text-align: center;
+	line-height: 50px;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+input[type="checkbox"]:checked ~ .icon:before
+{
+	content: 'menu';
+}
