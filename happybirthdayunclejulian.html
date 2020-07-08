@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Click And Hold</title>
+	<link rel ="stylesheet" href="happybirthdayunclejulian.css">
+</head>
+<body>
+	<section>
+		<h2><strong>Happy Birthday Uncle Julian</h2>
+		<br>Happy birthday Uncle Julian, here is a website I made you.  
+		<br>I hope You Have A Super Duper Happy Birthday.
+		<br>You Are The BEST Uncle ever!!!
+		<br>there is a little secret about this website - If you hold
+		<br>Down click something that I made using html, css and java script
+		<br>Will Happen!!!
+		<br>I hope you like the e - card!</strong>
+		<br> Your the best, Josh
+		<img src="happy-birthday-image-30.jpg" alt="Happy Birthday image Not Loading :("
+	</section>
+	<div id="cursor"></div>
+	<script type="text/javascript">
+		var cursor = document.getElementById('cursor');
+		window.onmousemove = function(e){
+			var x = e.clientX,
+				y = e.clientY;
+				cursor.style.left = x + 'px'
+				cursor.style.top = y + 'px'
+		}
+	</script>
+</body>
+</html>
