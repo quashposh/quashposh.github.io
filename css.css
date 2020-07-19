@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ranchers&family=Rowdies:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta&family=Ranchers&family=Rowdies:wght@700&display=swap');
 body
 {
 	margin: 0;
@@ -7,3 +10,23 @@ body
 	font-size: 100px;
 	color: #fc5203;
 }
+section
+{
+	font-family: 'Rowdies', cursive;
+	font-size: 111px;
+}
+h1
+{
+	font-family: 'Ranchers', cursive;
+}
+p
+{
+	font-family: 'Lexend Zetta', sans-serif;
+	font-size: 111px;
+}
+img
+{
+	border: 5px solid #555;
+	border-color: #fc5203;
+}
+
