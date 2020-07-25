@@ -4,9 +4,12 @@
 <link rel="stylesheet" type="text/css" href="schoolwebsite.css">
 </head>
 <body>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-	<div class="toggle"></div>
-	<div class="content">
+		<div id='progressbar'></div>
+		<div id='scrollpath'></div>
+		<div id='percent'></div>
+		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<div class="toggle"></div>
+		<div class="content">
 	<h1>Principal's Welcome</h1>
 <p>Welcome to Pakuranga Heights School</p>
 
@@ -42,6 +45,16 @@ Principal</strong></p>
 		})
 	})
   </script>
+  <script type="text/javascript">
+		var  progressbar = document.getElementById("progressbar")
+		var  percent = document.getElementById("percent")
+		
+		var totalHeight = document.body.scrollHeight - window.innerHeight;
+		window.onscroll = function(){
+			var progress = (window.pageYOffset / totalHeight) * 100;
+			progressbar.style.height = progress + "%";
+			percent.innerHTML = "Page Scrolled " + Math.round(progress) + "%"
+		}
   	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<div class="toggle"></div>
 	<div class="content">
